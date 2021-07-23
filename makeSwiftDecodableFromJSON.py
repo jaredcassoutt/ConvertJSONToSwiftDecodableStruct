@@ -1,5 +1,53 @@
 import ast
 
+def findTypeInBrackets(bracket, iterations=1):
+    if isinstance(bracket[0], str):
+        valType = ""
+        for i in range(0,iterations):
+            valType+=valType + "["
+            
+        valType+="String"
+        for i in range(0,iterations):
+            valType+=valType + "]"
+        return valType
+    if isinstance(bracket[0], int):
+        valType = ""
+        for i in range(0,iterations):
+            valType+=valType + "["
+            
+        valType+="Int"
+        for i in range(0,iterations):
+            valType+=valType + "]"
+        return valType
+    if isinstance(bracket[0], bool):
+        valType = ""
+        for i in range(0,iterations):
+            valType+=valType + "["
+            
+        valType+="Bool"
+        for i in range(0,iterations):
+            valType+=valType + "]"
+        return valType
+    if isinstance(bracket[0], float):
+        valType = ""
+        for i in range(0,iterations):
+            valType+=valType + "["
+            
+        valType+="Double"
+        for i in range(0,iterations):
+            valType+=valType + "]"
+        return valType
+    if isinstance(bracket[0], list):
+        iterations+=1
+        findTypeInBrackets(bracket[0],iterations)
+    '''
+    if isinstance(val, dict):
+        dict_dict[key] = val
+        valType = f"{key}"
+    '''
+    
+    
+
 def makeSwiftDecodableFromJSON(json,struct_name):
     '''This function takes a string of a JSON dictionary and 
     converts it to a decodable struct that can be used in mobile
@@ -34,14 +82,7 @@ def makeSwiftDecodableFromJSON(json,struct_name):
         if isinstance(val, float):
             valType = "Double"
         if isinstance(val, list):
-            if isinstance(val[0],str):
-                valType = "[String]"
-            if isinstance(val[0],bool):
-                valType = "[Bool]"
-            if isinstance(val[0],int):
-                valType = "[Int]"
-            if isinstance(val[0],float):
-                valType = "[Double]"
+            valType = findTypeInBrackets(val)
         if isinstance(val, dict):
             dict_dict[key] = val
             valType = f"{key}"
