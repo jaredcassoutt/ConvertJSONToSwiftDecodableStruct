@@ -4,42 +4,42 @@ def findTypeInBrackets(bracket, iterations=1):
     if isinstance(bracket[0], str):
         valType = ""
         for i in range(0,iterations):
-            valType+=valType + "["
+            valType+="["
             
         valType+="String"
         for i in range(0,iterations):
-            valType+=valType + "]"
+            valType+="]"
         return valType
-    if isinstance(bracket[0], int):
+    if isinstance(bracket[0], int) and not isinstance(bracket[0], bool):
         valType = ""
         for i in range(0,iterations):
-            valType+=valType + "["
+            valType+="["
             
         valType+="Int"
         for i in range(0,iterations):
-            valType+=valType + "]"
+            valType+="]"
         return valType
     if isinstance(bracket[0], bool):
         valType = ""
         for i in range(0,iterations):
-            valType+=valType + "["
+            valType+="["
             
         valType+="Bool"
         for i in range(0,iterations):
-            valType+=valType + "]"
+            valType+="]"
         return valType
     if isinstance(bracket[0], float):
         valType = ""
         for i in range(0,iterations):
-            valType+=valType + "["
+            valType+="["
             
         valType+="Double"
         for i in range(0,iterations):
-            valType+=valType + "]"
+            valType+="]"
         return valType
     if isinstance(bracket[0], list):
         iterations+=1
-        findTypeInBrackets(bracket[0],iterations)
+        return findTypeInBrackets(bracket[0],iterations)
     '''
     if isinstance(val, dict):
         dict_dict[key] = val
@@ -77,7 +77,7 @@ def makeSwiftDecodableFromJSON(json,struct_name):
             valType = "Bool"
         if isinstance(val, type(None)):
             continue
-        if isinstance(val, int):
+        if isinstance(val, int) and not isinstance(val, bool):
             valType = "Int"
         if isinstance(val, float):
             valType = "Double"
@@ -118,7 +118,7 @@ struct InformationPreview: Decodable{
     public let string information: String?
     public let int information: Int?
     public let float information: Double?
-    public let bool information: Int?
+    public let bool information: Bool?
     public let list information: [String]?
 
 
